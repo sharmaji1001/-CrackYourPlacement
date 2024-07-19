@@ -1,0 +1,119 @@
+287. Find the Duplicate Number
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& arr) {
+        int n=arr.size();
+        int slow=0;
+        int fast=0;
+
+        while(true){
+            slow=arr[slow];
+            fast=arr[arr[fast]];
+            if(slow==fast)  break;
+        };
+
+        fast=0;
+        while(slow!=fast){
+            slow=arr[slow];
+            fast=arr[fast];
+            if(slow==fast) return fast;
+        }
+        return 0;
+        
+    }
+};
+
+75. Sort Colors
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+    }
+};
+
+26. Remove Duplicates from Sorted Array
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int j = 1;
+        for(int i = 1; i < nums.size(); i++){
+            if(nums[i] != nums[i - 1]){
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+        return j;
+    }
+};
+
+73. Set Matrix Zeroes
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        unordered_set<int> setRows; 
+        unordered_set<int> setColumns; 
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(matrix[i][j] == 0){
+                    setRows.insert(i);
+                    setColumns.insert(j);
+                }
+            }
+        }
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(setRows.count(i) > 0 || setColumns.count(j) > 0){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+};
+
+283. Move Zeroes
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int left = 0; // pointer for the current non-zero element
+        for (int right = 0; right < nums.size(); right++) {
+            if (nums[right] != 0) {
+                swap(nums[left], nums[right]);
+                left++;
+            }
+        }
+    }
+};
+
+121. Best Time to Buy and Sell Stock
+
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if (prices.empty()) // Handle empty vector case
+            return 0;
+
+        int min_price = prices[0];
+        int max_profit = 0;
+
+        for (int i = 1; i < prices.size(); i++) {
+            if (prices[i] < min_price)
+                min_price = prices[i];
+            else if (prices[i] - min_price > max_profit)
+                max_profit = prices[i] - min_price;
+        }
+
+        return max_profit;
+    }
+};
